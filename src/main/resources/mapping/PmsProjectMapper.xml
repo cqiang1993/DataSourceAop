@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.test.aop.dao.IPmsProjectMapper">
+	<resultMap type="com.test.aop.model.PmsProject" id="PmsProject">
+		<id column="id" property="id" />
+		<result column="isCat" property="isCat" />
+		<result column="catID" property="catID" />
+		<result column="type" property="type" />
+		<result column="parent" property="parent" />
+		<result column="name" property="name" />
+		<result column="code" property="code"/>
+		<result column="fcode" property="fcode" />
+		<result column="ccode" property="ccode" />
+		<result column="goal" property="goal" />
+		<result column="begin" property="begin" />
+		<result column="end" property="end"/>
+		<result column="days" property="days" />
+		<result column="status" property="status" />
+		<result column="statge" property="statge" />
+		<result column="pri" property="pri" />
+		<result column="desc" property="desc"/>
+		<result column="openedBy" property="openedBy" />
+		<result column="openedDate" property="openedDate"/>
+		<result column="openedVersion" property="openedVersion" />
+		<result column="closedBy" property="closedBy" />
+		<result column="closedDate" property="closedDate"/>
+		<result column="canceledBy" property="canceledBy" />
+		<result column="canceledDate" property="canceledDate" />
+		<result column="PO" property="PO" />
+		<result column="PM" property="PM" />
+		<result column="QD" property="QD"/>
+		<result column="RD" property="RD" />
+		<result column="team" property="team"/>
+		<result column="acl" property="acl" />
+		<result column="whitelist" property="whitelist" />
+		<result column="order" property="order"/>
+		<result column="deleted" property="deleted"/>
+	</resultMap>
+
+	<select id="getPmsProjectList" parameterType="Map"
+		resultType="List" resultMap="PmsProject">
+		select * from zt_project where id in (select project from zt_projectproduct where product=#{product}) and deleted='0'
+	</select>
+	
+	<select id="getPmsProject" parameterType="Map"
+		resultType="com.test.aop.model.PmsProject" resultMap="PmsProject">
+		select * from zt_project where id = #{id}	
+	</select>
+	
+</mapper>

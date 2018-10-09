@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.test.aop.dao.IProductUserMapper">
+	<resultMap type="com.test.aop.model.ProductUser" id="ProductUser">
+		<id column="id" property="id" />
+		<result column="product_id" property="product_id" />
+		<result column="product_name" property="product_name" />
+		<result column="user" property="user" />
+		<result column="account99" property="account99" />
+		<result column="is_deleted" property="is_deleted" />
+	</resultMap>
+	
+	<select id="getAllList" resultMap="ProductUser" resultType="List">
+		select * from product_user where is_deleted=0
+	</select>
+	
+	<select id="getProductUser" resultMap="ProductUser" parameterType="Map" resultType="List">
+		select * from product_user where product_id=#{product_id}
+	</select>
+</mapper>

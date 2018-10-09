@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.test.aop.dao.IPmsProductMapper">
+	<resultMap type="com.test.aop.model.PmsProduct" id="PmsProduct">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="code" property="code" />
+		<result column="fcode" property="fcode" />
+		<result column="ccode" property="ccode" />
+		<result column="status" property="status" />
+		<result column="desc" property="desc"/>
+		<result column="PO" property="PO" />
+		<result column="QD" property="QD" />
+		<result column="RD" property="RD" />
+		<result column="acl" property="acl" />
+		<result column="whitelist" property="whitelist"/>
+		<result column="createdBy" property="createdBy" />
+		<result column="createdDate" property="createdDate" />
+		<result column="createdVersion" property="createdVersion" />
+		<result column="order" property="order" />
+		<result column="deleted" property="deleted"/>
+		<result column="nd99ugroups" property="nd99ugroups" />
+		<result column="productgroup" property="productgroup"/>
+	</resultMap>
+
+	<select id="getPmsProductList" parameterType="Map"
+		resultType="List" resultMap="PmsProduct">
+		select * from zt_product where deleted='0' and acl!='private'
+	</select>
+	
+	<select id="getPmsProductById" parameterType="Map" 
+		resultType="com.test.aop.model.PmsProduct" resultMap="PmsProduct">
+		select * from zt_product where id=#{id}
+	</select>
+	
+</mapper>

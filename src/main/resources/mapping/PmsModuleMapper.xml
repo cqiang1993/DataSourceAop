@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.test.aop.dao.IPmsModuleMapper">
+	<resultMap type="com.test.aop.model.PmsModule" id="PmsModule">
+		<id column="id" property="id" />
+		<result column="root" property="root" />
+		<result column="name" property="name" />
+		<result column="parent" property="parent" />
+		<result column="path" property="path" />
+		<result column="grade" property="grade" />
+		<result column="order" property="order"/>
+		<result column="type" property="type" />
+	</resultMap>
+
+	<select id="getModuleByRoot" parameterType="Map"
+		resultType="List" resultMap="PmsModule">
+		select * from zt_module where root=#{root}
+	</select>
+	<select id="getModuleById" parameterType="Map"
+		resultType="com.test.aop.model.PmsModule" resultMap="PmsModule">
+		select * from zt_module where id=#{id}
+	</select>
+	<select id="getPmsModuleList" parameterType="Map"
+		resultType="List" resultMap="PmsModule">
+		select * from zt_module
+	</select>
+</mapper>

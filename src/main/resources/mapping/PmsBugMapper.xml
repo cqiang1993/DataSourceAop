@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.test.aop.dao.IPmsBugMapper">
+	<resultMap type="com.test.aop.model.PmsBug" id="PmsBug">
+		<id column="id" property="id" />
+		<result column="product_id" property="product_id" />
+		<result column="module_id" property="module_id" />
+		<result column="project_id" property="project_id" />
+		<result column="assigned_to" property="assigned_to" />
+		<result column="env" property="env" />
+		<result column="platform" property="platform" />
+		<result column="bug_title" property="bug_title" />
+		<result column="error_info_detail" property="error_info_detail" />
+		<result column="error_type" property="error_type"/>
+		<result column="severity" property="severity"/>
+		<result column="discovery_probe" property="discovery_probe"/>
+		<result column="linked_product" property="linked_product"/>
+		<result column="linked_module" property="linked_module"/>
+		<result column="pms_bug_id" property="pms_bug_id" />
+		<result column="state" property="state" />
+		<result column="pms_reason" property="pms_reason" />
+		<result column="pms_update_time" property="pms_update_time"/>
+		<result column="pms_state" property="pms_state"/>
+		<result column="submit_user" property="submit_user"/>
+		<result column="create_time" property="create_time"/>
+		<result column="operator_user" property="operator_user"/>
+	</resultMap>
+	
+	<insert id="insertPmsBug" parameterType="Map" useGeneratedKeys="true">
+		INSERT INTO
+		pms_bug(product_id,module_id,project_id,assigned_to,env,
+		platform,bug_title,error_info_detail,error_type,severity,
+		discovery_probe,linked_product,linked_module,state,submit_user,create_time)
+		values(#{product_id},#{module_id},#{project_id},#{assigned_to},#{env},
+		#{platform},#{bug_title},#{error_info_detail},#{error_type},#{severity},
+		#{discovery_probe},#{linked_product},#{linked_module},#{state},#{submit_user},#{create_time});
+	</insert>
+	
+	<select id="getPmsBugListForOption" parameterType="Map" resultType="List"
+		resultMap="PmsBug">
+		select * from pms_bug		
+		where id!=0
+        <if test="product_id!=-1">
+		   and product_id=#{product_id}
+		</if>
+		<if test="module_id!=-1">
+		   and module_id=#{module_id}
+		</if>
+		<if test="state!=-1">
+		   and state=#{state}
+		</if>
+		<if test="startTime!=null">
+		   and create_time BETWEEN (#{startTime}) and (#{endTime})
+		</if>
+		order by create_time desc,id desc limit #{start},#{rows}
+	</select>
+	<select id="getPmsBugListForOptionCount" parameterType="Map" resultType="int">
+		select count(*) from pms_bug		
+		where id!=0
+        <if test="product_id!=-1">
+		   and product_id=#{product_id}
+		</if>
+		<if test="module_id!=-1">
+		   and module_id=#{module_id}
+		</if>
+		<if test="state!=-1">
+		   and state=#{state}
+		</if>
+		<if test="startTime!=null">
+		   and create_time BETWEEN (#{startTime}) and (#{endTime})
+		</if>
+	</select>
+	
+	<select id="getPmsBugById" parameterType="Map" 
+		resultType="com.test.aop.model.PmsBug" resultMap="PmsBug">
+		select * from pms_bug where id = #{id}	
+	</select>
+	
+	<update id="updatePmsBugState" parameterType="Map">
+		update
+		pms_bug
+		set state = #{state},pms_reason=#{pms_reason},operator_user=#{operator_user}
+		where id = #{id}
+	</update>
+	<update id="updatePmsStateByPmsId" parameterType="Map">
+		update
+		pms_bug
+		set pms_state = #{pms_state},pms_update_time=#{pms_update_time}
+		where pms_bug_id = #{pms_bug_id}
+	</update>
+	<update id="updatePmsBugId" parameterType="Map">
+		update
+		pms_bug
+		set pms_bug_id = #{pms_bug_id}
+		where id = #{id}
+	</update>
+	<select id="getPmsBugListByStateAndTime" parameterType="Map" resultType="List"
+		resultMap="PmsBug">
+		select * from pms_bug where state= #{state} and create_time &lt;= #{create_time} order by create_time desc
+	</select>
+	<select id="getPmsBugListByStateAndPmsState" parameterType="Map" resultType="List"
+		resultMap="PmsBug">
+		select * from pms_bug where state= #{state} and (pms_state!=#{pms_state} or pms_state is NULL)
+	</select>
+</mapper>

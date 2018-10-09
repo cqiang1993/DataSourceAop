@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.test.aop.dao.IPmsBugRemoteMapper">
+	<resultMap type="com.test.aop.model.PmsBugRemote" id="PmsBugRemote">
+		<id column="id" property="id" />
+		<result column="product" property="product" />
+		<result column="module" property="module" />
+		<result column="project" property="project" />
+		<result column="plan" property="plan" />
+		<result column="story" property="story" />
+		<result column="storyVersion" property="storyVersion" />
+		<result column="task" property="task" />
+		<result column="toTask" property="toTask" />
+		<result column="toStory" property="toStory"/>
+		<result column="title" property="title"/>
+		<result column="keywords" property="keywords"/>
+		<result column="severity" property="severity"/>
+		<result column="pri" property="pri"/>
+		<result column="type" property="type" />
+		<result column="os" property="os" />
+		<result column="browser" property="browser" />
+		<result column="hardware" property="hardware" />
+		<result column="found" property="found" />
+		<result column="steps" property="steps" />
+		<result column="status" property="status" />
+		<result column="confirmed" property="confirmed" />
+		<result column="activatedCount" property="activatedCount"/>
+		<result column="mailto" property="mailto"/>
+		<result column="openedBy" property="openedBy"/>
+		<result column="openedDate" property="openedDate"/>
+		<result column="openedBuild" property="openedBuild"/>
+		<result column="assignedTo" property="assignedTo" />
+		<result column="assignedDate" property="assignedDate" />
+		<result column="resolvedBy" property="resolvedBy" />
+		<result column="resolution" property="resolution" />
+		<result column="resolvedBuild" property="resolvedBuild" />
+		<result column="resolvedDate" property="resolvedDate" />
+		<result column="closedBy" property="closedBy" />
+		<result column="closedDate" property="closedDate" />
+		<result column="duplicateBug" property="duplicateBug"/>
+		<result column="linkBug" property="linkBug"/>
+		<result column="case" property="caseI"/>
+		<result column="caseVersion" property="caseVersion"/>
+		<result column="result" property="result"/>
+		<result column="testtask" property="testtask" />
+		<result column="lastEditedBy" property="lastEditedBy" />
+		<result column="lastEditedDate" property="lastEditedDate" />
+		<result column="deleted" property="deleted" />
+		<result column="stage" property="stage" />
+		<result column="duty1" property="duty1" />
+		<result column="estimateDate" property="estimateDate" />
+		<result column="score" property="score" />
+		<result column="personLiable" property="personLiable"/>
+		<result column="difficulty" property="difficulty"/>
+		<result column="platform" property="platform"/>
+		<result column="lostTest" property="lostTest"/>
+		<result column="lostTestSource" property="lostTestSource"/>
+		<result column="linkedProduct" property="linkedProduct"/>
+		<result column="linkedModule" property="linkedModule"/>
+		<result column="discoveryPhase" property="discoveryPhase"/>
+		<result column="discoveryProbe" property="discoveryProbe"/>
+		<result column="leadDeveloper" property="leadDeveloper"/>
+		<result column="tqd" property="tqd"/>
+		<result column="updateTime" property="updateTime"/>
+		<result column="isLevel" property="isLevel"/>
+		<result column="levelRemark" property="levelRemark"/>
+	</resultMap>
+	
+	<select id="getPmsBugRemoteData" parameterType="Map" resultType="List" resultMap="PmsBugRemote">
+		select * from zt_bug where title=#{title}
+	</select>
+	
+</mapper>

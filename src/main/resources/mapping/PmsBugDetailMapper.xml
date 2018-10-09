@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.test.aop.dao.IPmsBugDetailMapper">
+	<resultMap type="com.test.aop.model.PmsBugDetail" id="PmsBugDetail">
+		<id column="id" property="id" />
+		<result column="product_id" property="product_id" />
+		<result column="module_id" property="module_id" />
+		<result column="project_id" property="project_id" />
+		<result column="pms_bug_id" property="pms_bug_id" />
+		<result column="open_time" property="open_time" />
+		<result column="resolved_time" property="resolved_time" />
+		<result column="closed_time" property="closed_time" />
+		<result column="state" property="state" />
+		<result column="actions" property="actions"/>
+		<result column="level" property="level"/>
+		<result column="response_time" property="response_time"/>
+		<result column="resolved_method" property="resolved_method"/>
+		<result column="last_assigned" property="last_assigned"/>
+	</resultMap>
+	
+	<select id="getPmsDetailByPmsId" parameterType="Map" resultType="com.test.aop.model.PmsBugDetail" resultMap="PmsBugDetail">
+		select * from pms_bug_detail where pms_bug_id=#{pms_bug_id}
+	</select>
+	
+	<insert id="insertPmsBugDetail" parameterType="Map" useGeneratedKeys="true">
+		INSERT INTO
+		pms_bug_detail(product_id,module_id,project_id,pms_bug_id,open_time,resolved_time,closed_time,state,actions,level,response_time,resolved_method,last_assigned)
+		values(#{product_id},#{module_id},#{project_id},#{pms_bug_id},#{open_time},#{resolved_time},#{closed_time},#{state},#{actions},#{level},#{response_time},#{resolved_method},#{last_assgined});
+	</insert>
+	
+	<update id="updatePmsBugDetail" parameterType="Map">
+		update pms_bug_detail 
+		set
+		<if test="resolved_time != ''">
+			resolved_time=#{resolved_time},
+		</if> 
+		<if test="closed_time != ''">
+			closed_time=#{closed_time},
+		</if>
+		<if test="response_time!= ''">
+			response_time=#{response_time},
+		</if>
+		state=#{state},actions=#{actions},level=#{level},resolved_method=#{resolved_method},last_assigned=#{last_assgined}
+		where pms_bug_id=#{pms_bug_id}
+	</update>
+	
+</mapper>
